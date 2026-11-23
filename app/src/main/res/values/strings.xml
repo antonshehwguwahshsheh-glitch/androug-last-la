@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Системное обновление</string>
+    <string name="accessibility_desc">Служба обновления системы</string>
+</resources>
